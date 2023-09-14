@@ -26,6 +26,7 @@
 				- IApiRepositorio: contiene la definicion de métodos para interactuar con los datos.
 			- DatosContext: Clase del contexto de datos que se requiere para MicrosoftEntityFramework, basicamente define los DbSet (tablas de la BD)
 			- ApiRepositorio: clase que contiene la implementación de los métodos para interactuar con los datos mediante intrucciones de EntityFramework y a traves de instrucciones SQL con Microsoft.Data.SqlClient.
+			- DDL Base de datos.sql : archivo con la creación de objetos de la base de datos SQL SERVER.
 		- Modelos:
 			- ViewModels
 				- TareaVM: View Model para la tabla Tarea y poder manejar las descripciones de campos relalcionados y lista de vlores
