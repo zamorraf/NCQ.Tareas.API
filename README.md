@@ -1,1 +1,38 @@
 ﻿Proyecto de WEB API pra acceso a los datos en una base de datos SQL Server
+
+- Se crea un proyecto ASP.NET Core Web API para gestionar el acceso a los datos de dos tablas (tarea y colaborador) de una base de datos en SQL SERVER. Utilizando un patrón REPOSITORY para definir los métodos que accesan los datos a traves de:
+	- MicrosoftEntityFramework
+	- Microsoft.Data.SqlClient (ejecuión de query's).
+- La estructura del proyecto queda de la siguiente manera:
+	- NCQ.Tareas.API: nombre del proyecto y la solución.
+		- Controllers: carpeta con las clases de los controladores y las acciones para los metodos de acceso a datos: GET-POST-PUT-DELETE.
+			- TareaController: acciones para la gestion de datos de tareas
+				- Obtener: HTTPGET: Obtener lista de tareas mediante MicrosoftEntityFramework
+				- ObtTareas: HTTPGET(SQL): Obtener lista de tareas mediante SQLConnection (instrucción SQL).
+				- Obtener: HTTPGET(id): Obtener un tarea mediante MicrosoftEntityFramework
+				- ObtTarea: HTTPGET(SQL - id): Obtene una tareas mediante SQLConnection (instrucción SQL).
+				- Agregar: HTTPPOST: Agregar una tarea mediante MicrosoftEntityFramework
+				- Modificar HTTPPUT: Modificar una tarea mediante MicrosoftEntityFramework
+				- Eliminar: HTTPDELETE: Eliminar una tarea mediante MicrosoftEntityFramework
+			- ColaboradorController: acciones para la gestion de datos de colaboradores
+				- Obtener: HTTPGET: Obtener lista de colaboradores mediante MicrosoftEntityFramework
+				- ObtColaboradores: HTTPGET(SQL): Obtener lista de colaboradores mediante SQLConnection (instrucción SQL).
+				- Obtener: HTTPGET(ID): Obtener un colaborador mediante MicrosoftEntityFramework
+				- Agregar: HTTPPOST: Agregar un colaborador mediante MicrosoftEntityFramework
+				- Modificar HTTPPUT: Modificar un colaborador mediante MicrosoftEntityFramework
+				- Eliminar: HTTPDELETE: Eliminar un colaborador mediante MicrosoftEntityFramework
+		- Datos
+			- Interfaces:
+				- IApiRepositorio: contiene la definicion de métodos para interactuar con los datos.
+			- DatosContext: Clase del contexto de datos que se requiere para MicrosoftEntityFramework, basicamente define los DbSet (tablas de la BD)
+			- ApiRepositorio: clase que contiene la implementación de los métodos para interactuar con los datos mediante intrucciones de EntityFramework y a traves de instrucciones SQL con Microsoft.Data.SqlClient.
+		- Modelos:
+			- ViewModels
+				- TareaVM: View Model para la tabla Tarea y poder manejar las descripciones de campos relalcionados y lista de vlores
+			- Colaborador: clase que define la estructura de la tabla Colaborador de la Base de Datos.
+			- Tarea: clase que define la estructura de la tabla Tarea de la Base de Datos.
+		- appsettings.json
+			- ConnectionStrings -> Conexion: configuración de parámetros para conectarse a la base de datos
+		- Program.cs
+			- Se inyecta la conexion al contexto de Entity Framework (DBCONTEXT) para poder hacer la conexion a la BD.
+			- Se agrega el servicio del repositorio (ApiRepositorio) para usar en los controladores y poder inyectarlo.
